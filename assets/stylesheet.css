@@ -83,7 +83,7 @@ header {
     .loader {
       border: 10px solid #f3f3f3;
       border-radius: 50%;
-      border-top: 10px solid #fe9635;
+      border-top: 10px solid var(--accent);
       width: 80px;
       height: 80px;
       -webkit-animation: spin 2s linear infinite; /* Safari */
