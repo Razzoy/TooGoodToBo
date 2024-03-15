@@ -11,7 +11,7 @@
   <body>
     <header>
       <div class="img_container">
-        <img src="assets/images/logo.png" alt="logo" />
+        <img src="./assets/images/logo_cropped.png" alt="logo" />
       </div>
       <h1>Too Good To Bo</h1>
       <div id="search_wrapper">
@@ -21,21 +21,21 @@
           src="assets/images/search_FILL0_wght400_GRAD0_opsz24.svg"
           alt="search"
         />
-        <img
-          id="search-history"
-          src="assets/images/browse_gallery_FILL0_wght400_GRAD0_opsz24.svg"
-          alt=""
-        />
       </div>
     </header>
-    <nav id="navigation"></nav>
-    <section id="recipes"></section>
-
-     <!-- loading animation -->
-     <div id="animLoader" class="loader-container">
-      <div class="loader"></div>
-    </div>
+    <nav class="container-category">
+      <h2>Categories</h2>
+      <nav id="recipe-categories"></nav>
+    </nav>
     
+    <nav class="container-recipes">
+      <section id="recipes"></section>
+
+      <!-- loading animation -->
+      <!-- <div id="animLoader" class="loader-container">
+        <div class="loader"></div>
+      </div> -->
+    </nav>
   </body>
 </html>
 

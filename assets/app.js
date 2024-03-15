@@ -3,6 +3,7 @@ const searchbarElement = document.getElementById("search_bar");
 const searchIcon = document.getElementById("search-icon");
 const navElement = document.getElementById("navigation");
 const myRecipes = document.getElementById("recipes");
+const recipeCategories = document.getElementById("recipe-categories");
 
 let myMeals = null;
 
@@ -28,7 +29,7 @@ function getRecipeData(searchedRecipe) {
       receivedRecipeData(json.meals);
     })
     .catch((error) => {
-      console.log("Error fetching product data:", error);
+      console.log("Error fetching recipe data:", error);
     });
 }
 
@@ -56,7 +57,7 @@ function getCategoryData() {
       return response.json(); // Parse the JSON response
     })
     .then((data) => {
-      //   receiveCategoryData(data.categories); // Call the appropriate function with the data
+     receiveCategoryData(data.categories); // Call the appropriate function with the data
     })
     .catch((error) => {
       console.log("Error fetching category data:", error);
@@ -97,6 +98,7 @@ function searchForRecipe() {
   const recipeSearch = searchbarElement.value.trim();
   if (recipeSearch === "") {
     console.log("No Recipes found");
+    return;
   }
   getRecipeData(recipeSearch);
 
@@ -116,8 +118,8 @@ function receiveCategoryData(categoryData) {
 
 function receivedRecipeData(mealData) {
   console.log(mealData);
-
-  createMealCards(mealData);
+  myMeals = mealData;
+  createMealCards(myMeals);
 }
 
 //WIP//
@@ -149,16 +151,17 @@ function createNavBar(myCategories) {
   let myHTML = `<button onclick=navCallBack('all')>All Categories</button>`;
 
   myCategories.forEach((category) => {
-    let categoryElements = `<button>${category.strCategory}</button>`;
+    let categoryElements = `<button class="category-btn">${category.strCategory}</button>`;
 
-    myRecipes.innerHTML += categoryElements;
+    recipeCategories.innerHTML += categoryElements;
   });
 }
 
 function showSearchHistory(searchHistory) {
-  let searchHistory = getLocalStorage("recipeSearchHistory");
+  let searchedRecipe = searchHistory
+  searchedRecipe = getLocalStorage("recipeSearchHistory");
 
-  searchHistory.forEach((searchedElement) => {
+  searchedRecipe.forEach((searchedElement) => {
     console.log(searchedElement);
   });
 }
@@ -170,9 +173,9 @@ function createMealCards(myCards) {
   myCards.forEach(meal => {
 
 
-      let myHTML = `<figure onclick="mealCallBack(${meal.idMeal})"><h2>${meal.strMeal}</h2> <img src="${meal.strMealThumb}">;`
+      let myRecipeCard = `<figure onclick="mealCallBack(${meal.idMeal})"><h2>${meal.strMeal}</h2> <img src="${meal.strMealThumb}">`
 
-      myFeaturedElement.innerHTML += myHTML;
+      myRecipes.innerHTML += myRecipeCard;
   });
 }
 
@@ -192,8 +195,12 @@ function buildMeal(meals) {
   let myHTML = `<figure class = "MealDetails" onclick = "GetMealData()"> <h2>${Meal.title}</h2>${imageHTML} <p>${Meal.description}</p> </figure>`
 
 
-  myFeaturedElement.innerHTML = myHTML;
+  myRecipes.innerHTML = myHTML;
 
   // Fjern display: grid fra #featuredProducts
   
+}
+
+function clearApp() {
+  myRecipes.innerHTML = '';
 }
