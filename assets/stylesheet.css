@@ -82,15 +82,20 @@ header h1{
 
 }
 
+.container-category{
+  margin-left: 1.5rem;
+}
+
+.container-category h2{
+  padding: 0.5rem 0;
+}
+
 #recipe-categories button{
   padding: 1.5rem 0;
   min-width: 100px;
   border-radius: 10px;
   text-align: center;
-}
-
-#recipe-categories button:first-of-type {
-  margin-left: 1.5rem;
+  background-color: #fff;
 }
 
 #recipes{

@@ -11,6 +11,7 @@ let myMeals = null;
 
 getCategoryData();
 getRecipeData();
+getRecipeCategoryData();
 
 /*MODEL CODE---------------------------------------------------------------------------------------------------*/
 
@@ -18,6 +19,24 @@ function getRecipeData(searchedRecipe) {
   //Gets the paramenter from searchForRecipe and uses it in the template string
   fetch(
     `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchedRecipe}`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then((json) => {
+      receivedRecipeData(json.meals);
+    })
+    .catch((error) => {
+      console.log("Error fetching recipe data:", error);
+    });
+}
+
+function getRecipeCategoryData(selectedCategory) {
+  fetch(
+    `https://www.themealdb.com/api/json/v1/1/search.php?s=${selectedCategory}`
   )
     .then((response) => {
       if (!response.ok) {
@@ -106,6 +125,11 @@ function searchForRecipe() {
   setLocalStorage("recipeSearchHistory", recipeSearch);
 }
 
+function selectCategory(clickedCategory) {
+  console.log(clickedCategory);
+  
+}
+
 function receiveCategoryData(categoryData) {
   console.log(categoryData);
 
@@ -144,14 +168,14 @@ function mealCallBack(myId) {
 
 
 
-/*VIEW CODE--------------------------------------------------------------------------------------------*/
+/*VIEW CODE---------  -----------------------------------------------------------------------------------*/
 
 //Category Navigation
 function createNavBar(myCategories) {
   let myHTML = `<button onclick=navCallBack('all')>All Categories</button>`;
 
   myCategories.forEach((category) => {
-    let categoryElements = `<button class="category-btn">${category.strCategory}</button>`;
+    let categoryElements = `<button class="category-btn" onclick="selectCategory(${category.idCategory})">${category.strCategory}</button>`;
 
     recipeCategories.innerHTML += categoryElements;
   });
@@ -173,7 +197,7 @@ function createMealCards(myCards) {
   myCards.forEach(meal => {
 
 
-      let myRecipeCard = `<figure onclick="mealCallBack(${meal.idMeal})"><h2>${meal.strMeal}</h2> <img src="${meal.strMealThumb}">`
+      let myRecipeCard = `<figure onclick="mealCallBack(${meal.idMeal})"><img src="${meal.strMealThumb}"><h2>${meal.strMeal}</h2>`
 
       myRecipes.innerHTML += myRecipeCard;
   });
