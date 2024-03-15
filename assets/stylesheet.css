@@ -65,9 +65,12 @@ header {
 
 #search-history {
   position: absolute;
-  right: -3vw;
+  right: -3.6vw;
   width: auto;
   height: 50%;
+  background-color: white;
+  padding: 1vw;
+  border-radius: 50%;
 }
 
 /* LOADING SCREEN */
@@ -106,4 +109,8 @@ header {
       100% {
         transform: rotate(360deg);
       }
+    }
+
+    @media (min-width: 1200px){
+      
     }
