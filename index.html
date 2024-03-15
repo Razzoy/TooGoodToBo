@@ -3,7 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Commit Test</title>
+    <title>Too Good To Bo</title>
+    <link rel="stylesheet" href="assets/stylesheet.css" />
+    <script src="assets/app.js" defer></script>
   </head>
-  <body></body>
+
+  <body>
+    <header>
+      <div class="img_container">
+        <img src="./assets/images/logo_cropped.png" alt="logo" />
+      </div>
+      <h1>Too Good To Bo</h1>
+      <div id="search_wrapper">
+        <input type="text" name="search_bar" id="search_bar" />
+        <img
+          id="search-icon"
+          src="assets/images/search_FILL0_wght400_GRAD0_opsz24.svg"
+          alt="search"
+        />
+      </div>
+    </header>
+    <nav class="container-category">
+      <h2>Categories</h2>
+      <nav id="recipe-categories"></nav>
+    </nav>
+    
+    <nav class="container-recipes">
+      <section id="recipes"></section>
+
+      <!-- loading animation -->
+      <!-- <div id="animLoader" class="loader-container">
+        <div class="loader"></div>
+      </div> -->
+    </nav>
+  </body>
 </html>
