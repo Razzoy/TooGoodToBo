@@ -185,7 +185,7 @@ function mealCallBack(myId) {
       alert('There is no meals!')
   } else {
       clearApp();
-      buildMeal();
+      buildMeal(myClickedMeal);
   }
 }
 /*VIEW CODE---------  -----------------------------------------------------------------------------------*/
@@ -228,18 +228,20 @@ function createMealCards(myCards) {
 function buildMeal(meals) {
   let imageHTML = '';
 
+  console.log(meals);
+
   // Gennemgå hvert billede i product.images arrayet
-  meals.strMealThumb.forEach((image, index) => {
-      // Tilføj en klasse til det første billede
-      let isFirstImage = index === 0 ? 'first-image' : '';
-      // Opret HTML-markup for billedet og tilføj den til imageHTML
-      imageHTML += `<img src="${image}" class="${isFirstImage}">`
-  })
+  // meals.strMealThumb.forEach((image, index) => {
+  //     // Tilføj en klasse til det første billede
+  //     let isFirstImage = index === 0 ? 'first-image' : '';
+  //     // Opret HTML-markup for billedet og tilføj den til imageHTML
+  //     imageHTML += `<img src="${image}" class="${isFirstImage}">`
+  // })
+  let recipeDetails = `<figure class = "MealDetails" onclick = "GetMealData()"> <h2>${meals.strMeal}</h2> <p>${meals.strInstructions}</p></figure>`
+    myRecipes.innerHTML += recipeDetails;
 
-  let recipeDetails = `<figure class = "MealDetails" onclick = "GetMealData()"> <h2>${meals.strMeal}</h2>${imageHTML} <p>${meals.strInstructions}</p></figure>`
 
 
-  myRecipes.innerHTML += recipeDetails;
 
   // Fjern display: grid fra #featuredProducts
   
