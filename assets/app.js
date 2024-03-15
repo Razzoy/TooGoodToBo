@@ -36,7 +36,7 @@ function getRecipeData(searchedRecipe) {
 
 function getRecipeCategoryData(selectedCategory) {
   fetch(
-    `https://www.themealdb.com/api/json/v1/1/search.php?s=${selectedCategory}`
+    `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
   )
     .then((response) => {
       if (!response.ok) {
@@ -51,6 +51,8 @@ function getRecipeCategoryData(selectedCategory) {
       console.log("Error fetching recipe data:", error);
     });
 }
+
+
 
 //#region old category code
 //Create function for receiving the database data.
@@ -77,6 +79,23 @@ function getCategoryData() {
     })
     .then((data) => {
      receiveCategoryData(data.categories); // Call the appropriate function with the data
+    })
+    .catch((error) => {
+      console.log("Error fetching category data:", error);
+    });
+}
+
+function getFullRecipeDetails(clickedRecipe) {
+  fetch(`www.themealdb.com/api/json/v1/1/lookup.php?i=${clickedRecipe}
+  `)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json(); // Parse the JSON response
+    })
+    .then((data) => {
+     receiveCategoryData(data.meals); // Call the appropriate function with the data
     })
     .catch((error) => {
       console.log("Error fetching category data:", error);
@@ -126,8 +145,12 @@ function searchForRecipe() {
 }
 
 function selectCategory(clickedCategory) {
+  getRecipeCategoryData(clickedCategory);
   console.log(clickedCategory);
-  
+}
+
+function selectRecipe(clickedRecipe) {
+  getFullRecipeDetails(clickedRecipe);
 }
 
 function receiveCategoryData(categoryData) {
@@ -162,12 +185,9 @@ function mealCallBack(myId) {
       alert('There is no meals!')
   } else {
       clearApp();
-      buildMeal(myClickedMeals);
+      buildMeal();
   }
 }
-
-
-
 /*VIEW CODE---------  -----------------------------------------------------------------------------------*/
 
 //Category Navigation
@@ -175,7 +195,7 @@ function createNavBar(myCategories) {
   let myHTML = `<button onclick=navCallBack('all')>All Categories</button>`;
 
   myCategories.forEach((category) => {
-    let categoryElements = `<button class="category-btn" onclick="selectCategory(${category.idCategory})">${category.strCategory}</button>`;
+    let categoryElements = `<button class="category-btn" onclick="selectCategory('${category.strCategory}')">${category.strCategory}</button>`;
 
     recipeCategories.innerHTML += categoryElements;
   });
@@ -209,17 +229,17 @@ function buildMeal(meals) {
   let imageHTML = '';
 
   // Gennemgå hvert billede i product.images arrayet
-  meal.strMealThumb.forEach((image, index) => {
+  meals.strMealThumb.forEach((image, index) => {
       // Tilføj en klasse til det første billede
       let isFirstImage = index === 0 ? 'first-image' : '';
       // Opret HTML-markup for billedet og tilføj den til imageHTML
       imageHTML += `<img src="${image}" class="${isFirstImage}">`
   })
 
-  let myHTML = `<figure class = "MealDetails" onclick = "GetMealData()"> <h2>${Meal.title}</h2>${imageHTML} <p>${Meal.description}</p> </figure>`
+  let recipeDetails = `<figure class = "MealDetails" onclick = "GetMealData()"> <h2>${meals.strMeal}</h2>${imageHTML} <p>${meals.strInstructions}</p></figure>`
 
 
-  myRecipes.innerHTML = myHTML;
+  myRecipes.innerHTML += recipeDetails;
 
   // Fjern display: grid fra #featuredProducts
   
