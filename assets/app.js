@@ -237,7 +237,7 @@ function buildMeal(meals) {
   //     // Opret HTML-markup for billedet og tilføj den til imageHTML
   //     imageHTML += `<img src="${image}" class="${isFirstImage}">`
   // })
-  let recipeDetails = `<figure class = "MealDetails" onclick = "GetMealData()"> <h2>${meals.strMeal}</h2> <p>${meals.strInstructions}</p></figure>`
+  let recipeDetails = `<figure class = "fullRecipeDetails" onclick = "GetMealData()"><img src="${meals.strMealThumb}"/> <h2>${meals.strMeal}</h2> <p>${meals.strInstructions}</p></figure>`
     myRecipes.innerHTML += recipeDetails;
 
 
